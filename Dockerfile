@@ -5,6 +5,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
 COPY client.truststore.jks /etc/ssl/certs/java/cacerts/client.truststore.jks
+COPY client.keystore.jks /etc/ssl/certs/java/cacerts/client.keystore.jks
 RUN mvn clean package -DskipTests
 
 # Runtime stage
