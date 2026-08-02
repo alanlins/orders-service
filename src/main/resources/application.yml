@@ -3,7 +3,7 @@ spring:
     name: orders-service
   data:
     mongodb:
-      uri: mongodb://localhost:27017/orders_db
+      uri: mongodb+srv://alanvlins_db_user:pfQIBhVjhlQHUTOw@order-events.j3jnxmd.mongodb.net/orders_db?retryWrites=true&w=majority
   kafka:
     bootstrap-servers: localhost:9092
     producer:
