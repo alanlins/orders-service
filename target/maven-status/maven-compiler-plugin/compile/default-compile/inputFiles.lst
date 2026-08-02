@@ -1,0 +1,7 @@
+C:\Users\KISUKE\PROJECTS\order-events\orders-service\src\main\java\com\portfolio\orders\config\KafkaProducerConfig.java
+C:\Users\KISUKE\PROJECTS\order-events\orders-service\src\main\java\com\portfolio\orders\controller\OrderController.java
+C:\Users\KISUKE\PROJECTS\order-events\orders-service\src\main\java\com\portfolio\orders\event\OrderCreatedEvent.java
+C:\Users\KISUKE\PROJECTS\order-events\orders-service\src\main\java\com\portfolio\orders\model\Order.java
+C:\Users\KISUKE\PROJECTS\order-events\orders-service\src\main\java\com\portfolio\orders\OrdersServiceApplication.java
+C:\Users\KISUKE\PROJECTS\order-events\orders-service\src\main\java\com\portfolio\orders\repository\OrderRepository.java
+C:\Users\KISUKE\PROJECTS\order-events\orders-service\src\main\java\com\portfolio\orders\service\OrderService.java
