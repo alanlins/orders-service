@@ -10,12 +10,12 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     properties:
-      security.protocol: SASL_SSL
-      ssl.truststore.location: file:/etc/ssl/certs/java/cacerts/client.truststore.jks
-      ssl.truststore.password: ${TRUSTSTORE_PASSWORD}
-      ssl.keystore.location: file:/etc/ssl/certs/java/cacerts/client.keystore.jks
-      ssl.keystore.password: ${TRUSTSTORE_PASSWORD}
-      ssl.key.password: ${TRUSTSTORE_PASSWORD}
+      security.protocol: SSL
+      ssl.truststore.location: file:/app/client.truststore.jks
+      ssl.truststore.password: ${SSL_STORE_PASSWORD}
+      ssl.keystore.location: file:/app/client.keystore.jks
+      ssl.keystore.password: ${SSL_STORE_PASSWORD}
+      ssl.key.password: ${SSL_STORE_PASSWORD}
 
 server:
   port: 8081
