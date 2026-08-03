@@ -5,6 +5,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
+RUN apk add --no-cache openssl
 
 # Runtime stage
 FROM eclipse-temurin:21-jre-alpine
@@ -31,4 +32,4 @@ keytool -import -file ca.pem -alias AivenCA -keystore client.truststore.jks -sto
 exec java -jar app.jar\n' > entrypoint.sh
 
 RUN chmod +x entrypoint.sh
-ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]
+ENTRYPOINT ["set -e", "/bin/sh", "./entrypoint.sh"]

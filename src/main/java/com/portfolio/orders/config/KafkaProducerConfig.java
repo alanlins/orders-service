@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.ssl.SslBundles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -21,11 +22,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class KafkaProducerConfig {
 
-    private final KafkaProperties kafkaProperties;
-
     @Bean
-    public ProducerFactory<String, OrderCreatedEvent> producerFactory() {
-        Map<String, Object> configProps = new HashMap<>();
+    public ProducerFactory<String, OrderCreatedEvent> producerFactory(KafkaProperties kafkaProperties,
+            SslBundles sslBundles) {
+        Map<String, Object> configProps = kafkaProperties.buildProducerProperties(sslBundles);
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 kafkaProperties.getBootstrapServers());
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -37,7 +37,8 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate(KafkaProperties kafkaProperties,
+            SslBundles sslBundles) {
+        return new KafkaTemplate<>(producerFactory(kafkaProperties, sslBundles));
     }
 }
