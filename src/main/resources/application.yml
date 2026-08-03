@@ -11,9 +11,9 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     properties:
       security.protocol: SSL
-      ssl.truststore.location: file:/app/client.truststore.jks
+      ssl.truststore.location: classpath:/app/client.truststore.jks
       ssl.truststore.password: ${SSL_STORE_PASSWORD}
-      ssl.keystore.location: file:/app/client.keystore.jks
+      ssl.keystore.location: classpath:/app/client.keystore.jks
       ssl.keystore.password: ${SSL_STORE_PASSWORD}
       ssl.key.password: ${SSL_STORE_PASSWORD}
 
