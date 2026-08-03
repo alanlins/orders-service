@@ -20,6 +20,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \
 
 # Shell script to dynamically generate keystores from Render Environment Variables
 RUN printf '#!/bin/sh\n\
+set -e\n\
 echo "$KAFKA_CA_PEM" | base64 -d > ca.pem\n\
 echo "$KAFKA_CERT_PEM" | base64 -d > service.cert\n\
 echo "$KAFKA_KEY_PEM" | base64 -d > service.key\n\
@@ -34,4 +35,4 @@ keytool -import -file ca.pem -alias AivenCA -keystore client.truststore.jks -sto
 exec java -jar app.jar\n' > entrypoint.sh
 
 RUN chmod +x entrypoint.sh
-ENTRYPOINT ["set -e", "/bin/sh", "./entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]
