@@ -17,9 +17,9 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=3 \
 
 # Shell script to dynamically generate keystores from Render Environment Variables
 RUN printf '#!/bin/sh\n\
-echo "$KAFKA_CA_PEM" > ca.pem\n\
-echo "$KAFKA_CERT_PEM" > service.cert\n\
-echo "$KAFKA_KEY_PEM" > service.key\n\
+echo "$KAFKA_CA_PEM" | base64 -d > ca.pem\n\
+echo "$KAFKA_CERT_PEM" | base64 -d > service.cert\n\
+echo "$KAFKA_KEY_PEM" | base64 -d > service.key\n\
 \n\
 # Convert key to PKCS12\n\
 openssl pkcs12 -export -in service.cert -inkey service.key -out client.p12 -name client -passout pass:$SSL_STORE_PASSWORD\n\
@@ -28,7 +28,7 @@ openssl pkcs12 -export -in service.cert -inkey service.key -out client.p12 -name
 keytool -importkeystore -deststorepass $SSL_STORE_PASSWORD -destkeystore client.keystore.jks -srckeystore client.p12 -srcstoretype PKCS12 -srcstorepass $SSL_STORE_PASSWORD -noprompt\n\
 keytool -import -file ca.pem -alias AivenCA -keystore client.truststore.jks -storepass $SSL_STORE_PASSWORD -noprompt\n\
 \n\
-exec java -jar app.jar' > entrypoint.sh
+exec java -jar app.jar\n' > entrypoint.sh
 
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]
