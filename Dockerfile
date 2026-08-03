@@ -5,7 +5,9 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
-RUN apk add --no-cache openssl
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openssl && \
+    rm -rf /var/lib/apt/lists/*
 
 # Runtime stage
 FROM eclipse-temurin:21-jre-alpine
